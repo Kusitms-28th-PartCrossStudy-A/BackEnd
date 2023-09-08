@@ -1,0 +1,60 @@
+name: Part Cross
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: 🍃 application.yml 파일을 생성합니다.
+      run: |
+        cd ./src/main
+        mkdir resources 
+        cd ./resources
+        touch ./application.yml
+        echo "$APPLICATION" > ./application.yml
+      env:
+        APPLICATION: ${{ secrets.APPLICATION }}
+    
+    - name: 🍃 gradle build를 위한 권한을 부여합니다.
+      run: chmod +x gradlew
+      
+    - name: 🍃 gradle build 중입니다.
+      run: ./gradlew build -x test
+        
+    ## 이미지 빌드 및 도커허브에 push
+    - name: 🍃 docker image build 후 docker hub에 push합니다.
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }} .
+        docker push ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }}
+        
+    ## docker compose up
+	  ## 실행중인 컨테이너를 모두 제거
+    ## 생성된 남아있는 이미지를 제거(메모리 효율)
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          sudo docker rm -f $(docker ps -qa)
+          sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }} .
+          sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }} .
+          docker-compose up -d
+          docker image prune -f
