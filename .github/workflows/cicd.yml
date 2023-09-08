@@ -43,9 +43,6 @@ jobs:
         docker build -t ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }} .
         docker push ${{ secrets.DOCKER_REPOSITORY }}/${{ secrets.DOCKER_IMAGE }}
         
-    ## docker compose up
-	  ## 실행중인 컨테이너를 모두 제거
-    ## 생성된 남아있는 이미지를 제거(메모리 효율)
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
