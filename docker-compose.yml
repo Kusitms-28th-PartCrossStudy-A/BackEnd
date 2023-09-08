@@ -1,0 +1,11 @@
+version: '3'
+services:
+  part:
+    container_name: part
+    image: ryukwankon/part-cross
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
