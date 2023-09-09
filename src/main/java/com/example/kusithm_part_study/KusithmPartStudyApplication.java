@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class KusithmPartStudyApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(KusithmPartStudyApplication.class, args);
     }
 
