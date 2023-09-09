@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @org.springframework.stereotype.Service
 @Slf4j
@@ -43,10 +44,12 @@ public class ArticleService {
     }
 
     //게시물 수정
-        public ArticleResponseDTO modify(final ArticleModifyDTO dto) {
+        public ArticleResponseDTO modify(final Long articleId) {
 
         // 수정 전 데이터를 조회
-        final Article articleEntity = getArticle(dto.getArticleId());
+        final Article articleEntity = getArticle(articleId);
+
+        articleRepository.findById(articleId);
 
         // 수정 시작
         articleEntity.setTitle(dto.getTitle());
