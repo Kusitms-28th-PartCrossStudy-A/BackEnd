@@ -2,25 +2,17 @@ package com.example.kusithm_part_study.domain.article.dto;
 
 import com.example.kusithm_part_study.domain.article.entity.Article;
 import com.example.kusithm_part_study.domain.article.entity.Tag;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ArticleCreateDTO {
-
-    private Long articleId;
+public class ArticleResquestDto {
     private String title;
     private String description;
-    private String createdAt;
-    private String updatedAt;
-    private String message;
-    private List<Tag> tagList;
-
+    private String body;
+    private List<String> tagList;
 }

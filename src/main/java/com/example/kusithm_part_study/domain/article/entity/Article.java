@@ -26,5 +26,20 @@ public class Article extends BaseTimeEntity {
     @Builder.Default
     private List<Tag> tagList = new ArrayList<>();
 
+    public static Article createArticle(String title, String description, String body, List<Tag> tags){
+        return Article.builder()
+                .title(title)
+                .description(description)
+                .body(body)
+                .tagList(tags)
+                .build();
+    }
+
+    public void updateArticle(String title, String description, String body, List<Tag> tags){
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tagList = tags;
+    }
 
 }
