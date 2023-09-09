@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @Table(name = "article")
 @Entity
 public class Article extends BaseTimeEntity {
@@ -24,4 +25,6 @@ public class Article extends BaseTimeEntity {
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     @Builder.Default
     private List<Tag> tagList = new ArrayList<>();
+
+
 }
