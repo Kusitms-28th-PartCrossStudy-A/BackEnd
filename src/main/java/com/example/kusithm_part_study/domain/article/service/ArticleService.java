@@ -51,9 +51,6 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-    //게시물 등록
-
-    //    //게시물 수정
     public BaseArticleResponseDto modify(Long articleId, ArticleResquestDto resquestDto) {
         Article acticle = articleRepository.findById(articleId).orElseThrow();
         // 수정 시작
@@ -61,36 +58,8 @@ public class ArticleService {
         acticle.updateArticle(resquestDto.getTitle(), resquestDto.getDescription(), resquestDto.getTitle(), tagList);
         return BaseArticleResponseDto.of(acticle);
     }
-//
-//    private Article getArticle(Long id) {
-//        return articleRepository.findById(id)
-//                .orElseThrow(
-//                        () -> new RuntimeException(
-//                                id + "번 게시물이 존재하지 않습니다!"
-//                        )
-//                );
-//    }
-//
-    //게시물 삭제
+
     public void deleteArticle(Long id) {
         articleRepository.deleteById(id);
     }
-//
-//    //게시물 개별 조회
-//    public ArticleResponseDTO getDetail(Long id) {
-//
-//        Article articleEntity = getArticle(id);
-//        return new ArticleResponseDTO(articleEntity);
-//    }
-//
-//    //게시물 전체 조회
-//    public ArticleListResponseDTO getPosts() {
-//
-//        //데이터베이스에서 게시물 목록 조회
-//        List<Article> allArticle = articleRepository.findAll();
-//
-//        return null;
-//    }
-
-
 }
