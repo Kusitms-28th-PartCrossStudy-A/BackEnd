@@ -57,11 +57,8 @@ public class ArticleService {
     public BaseArticleResponseDto modify(Long articleId, ArticleResquestDto resquestDto) {
         Article acticle = articleRepository.findById(articleId).orElseThrow();
         // 수정 시작
-        acticle.setTitle(resquestDto.getTitle());
-        acticle.setDescription(resquestDto.getDescription());
-        acticle.setTitle(resquestDto.getTitle());
         List<Tag> tagList = resquestDto.getTagList().stream().map(Tag::createTag).toList();
-        acticle.setTagList(tagList);
+        acticle.updateArticle(resquestDto.getTitle(), resquestDto.getDescription(), resquestDto.getTitle(), tagList);
         return BaseArticleResponseDto.of(acticle);
     }
 //

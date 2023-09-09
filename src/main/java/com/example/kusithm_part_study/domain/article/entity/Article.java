@@ -35,4 +35,11 @@ public class Article extends BaseTimeEntity {
                 .build();
     }
 
+    public void updateArticle(String title, String description, String body, List<Tag> tags){
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tagList = tags;
+    }
+
 }
