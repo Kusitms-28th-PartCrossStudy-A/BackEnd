@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthCheckApiController {
     @RequestMapping("/")
     public String partCross() {
-        return "part cross A팀!";
+        return "201935039 류관곤입니다.";
     }
 }
